@@ -3,6 +3,8 @@
 namespace Kunstmaan\MediaBundle\Form;
 
 use Kunstmaan\MediaBundle\Repository\FolderRepository;
+use Kunstmaan\MediaBundle\Entity\Folder;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -79,9 +81,9 @@ abstract class AbstractRemoteType extends AbstractType
                     // Allow changing folder on edit
                     $form->add(
                         'folder',
-                        'entity',
+                        EntityType::class,
                         array(
-                            'class' => 'KunstmaanMediaBundle:Folder',
+                            'class' => Folder::class,
                             'choice_label' => 'optionLabel',
                             'query_builder' => function (FolderRepository $er) {
                                 return $er->selectFolderQueryBuilder()

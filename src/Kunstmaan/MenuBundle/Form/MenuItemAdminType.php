@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 use Kunstmaan\MenuBundle\Entity\Menu;
 use Kunstmaan\MenuBundle\Entity\MenuItem;
 use Kunstmaan\NodeBundle\Entity\Node;
+use Kunstmaan\NodeBundle\Entity\NodeTranslation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
@@ -73,7 +75,7 @@ class MenuItemAdminType extends AbstractType
 
         $builder->add(
             'parent',
-            'entity',
+            EntityType::class,
             array(
                 'class'         => $menuItemclass,
                 'choice_label'  => 'displayTitle',
@@ -119,9 +121,9 @@ class MenuItemAdminType extends AbstractType
 
         $builder->add(
             'nodeTranslation',
-            'entity',
+            EntityType::class,
             array(
-                'class'         => 'KunstmaanNodeBundle:NodeTranslation',
+                'class'         => NodeTranslation::class,
                 'choice_label'  => 'title',
                 'query_builder' => function (EntityRepository $er) use (
                     $locale,

@@ -3,7 +3,8 @@
 namespace Kunstmaan\AdminBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-
+use Kunstmaan\AdminBundle\Entity\Role;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -28,10 +29,10 @@ class GroupType extends AbstractType
             )
             ->add(
                 'rolesCollection',
-                'entity',
+                EntityType::class,
                 array(
                     'label'         => 'settings.group.roles',
-                    'class'         => 'KunstmaanAdminBundle:Role',
+                    'class'         => Role::class,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('r')
                             ->orderBy('r.role', 'ASC');
@@ -40,7 +41,7 @@ class GroupType extends AbstractType
                     'expanded'      => false,
                     'required'      => true,
                     'attr'          => array(
-			'class'            => 'js-advanced-select form-control advanced-select',
+                        'class'            => 'js-advanced-select form-control advanced-select',
                         'data-placeholder' => 'Choose the roles...'
                     ),
                 )

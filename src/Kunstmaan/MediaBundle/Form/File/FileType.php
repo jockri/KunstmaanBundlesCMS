@@ -2,7 +2,9 @@
 
 namespace Kunstmaan\MediaBundle\Form\File;
 
+use Kunstmaan\MediaBundle\Entity\Folder;
 use Kunstmaan\MediaBundle\Repository\FolderRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -12,9 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- * FileType
- */
 class FileType extends AbstractType
 {
 
@@ -92,9 +91,9 @@ class FileType extends AbstractType
                     // Allow changing folder on edit
                     $form->add(
                         'folder',
-                        'entity',
+                        EntityType::class,
                         array(
-                            'class' => 'KunstmaanMediaBundle:Folder',
+                            'class' => Folder::class,
                             'choice_label' => 'optionLabel',
                             'query_builder' => function (FolderRepository $er) {
                                 return $er->selectFolderQueryBuilder()

@@ -4,14 +4,12 @@ namespace Kunstmaan\MediaBundle\Form;
 
 use Kunstmaan\MediaBundle\Entity\Folder;
 use Kunstmaan\MediaBundle\Repository\FolderRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-/**
- * FolderType
- */
 class FolderType extends AbstractType
 {
     /**
@@ -59,9 +57,9 @@ class FolderType extends AbstractType
             )
             ->add(
                 'parent',
-                'entity',
+                EntityType::class,
                 array(
-                    'class' => 'KunstmaanMediaBundle:Folder',
+                    'class' => Folder::class,
                     'choice_label' => 'optionLabel',
                     'required' => true,
                     'query_builder' => function (FolderRepository $er) use ($folder) {
